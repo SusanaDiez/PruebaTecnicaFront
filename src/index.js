@@ -9,13 +9,13 @@ import './index.css';
 
 const App = () => {
   const [screen, setScreen] = useState('welcome');
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState('');
 
   useEffect(() => {
     const fetchBalance = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/saldo');
-        setBalance(await response.data.balance);
+        await axios.get('http://127.0.0.1:8000/saldo') 
+        .then((response)=>setBalance(response.data));
       } catch (error) {
         console.error(error);
       }

@@ -3,16 +3,18 @@ import axios from 'axios';
 import ReturnButton from './ReturnButton';
 
 const Cancel = ({ setScreen, setBalance }) => {
-  const [fondoId, setFondoId] = useState();
+  const [fondoId, setFondoId] = useState('');
   const [tipoF, setTipo] = useState('');
   const [destinatarioF, setDestinatario] = useState('');
 
   const handleCancel = async () => {
     try {
       const response = await axios.delete('http://127.0.0.1:8000/cancelar', {
-        fondo_id: parseInt(fondoId),
-        tipo: tipoF,
-        destinatario: destinatarioF,
+        data: {
+          fondo_id: parseInt(fondoId),
+          tipo: tipoF,
+          destinatario: destinatarioF,
+        },
       });
       alert(response.data.mensaje);
       setBalance(response.data.saldo_restante);
